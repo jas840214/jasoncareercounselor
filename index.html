@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Lin｜職涯諮詢師</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ─── TOKENS ─── */
+  :root {
+    --ink:       #1A1A2E;
+    --sky:       #4A90D9;
+    --sky-light: #EBF4FF;
+    --teal:      #2DC5A2;
+    --teal-dark: #1FA688;
+    --warm:      #FFF8F0;
+    --amber:     #F5A623;
+    --mid:       #6B7A99;
+    --border:    #E2E8F0;
+    --white:     #FFFFFF;
+    --r-sm: 12px;
+    --r-md: 20px;
+    --r-lg: 32px;
+    --shadow: 0 8px 32px rgba(74,144,217,.12);
+    --shadow-hover: 0 16px 48px rgba(74,144,217,.22);
+    --ff-display: 'Sora', sans-serif;
+    --ff-body:    'Noto Sans TC', sans-serif;
+  }
+
+  /* ─── RESET ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--ff-body);
+    color: var(--ink);
+    background: var(--white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ─── UTILITY ─── */
+  .container { width: min(1100px, 92%); margin-inline: auto; }
+  .tag {
+    display: inline-block;
+    font-family: var(--ff-display);
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--sky);
+    background: var(--sky-light);
+    padding: .3em .9em;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--ff-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .section-sub {
+    color: var(--mid);
+    font-size: 1.05rem;
+    margin-top: .6rem;
+    max-width: 520px;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow .3s;
+  }
+  .nav.scrolled { box-shadow: 0 4px 24px rgba(26,26,46,.08); }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .nav-logo span { color: var(--sky); }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: .9rem;
+    font-weight: 500;
+    color: var(--mid);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--sky); }
+  .nav-cta {
+    background: var(--sky);
+    color: var(--white) !important;
+    padding: .45em 1.2em;
+    border-radius: 100px;
+    font-weight: 600 !important;
+    transition: background .2s, transform .2s !important;
+  }
+  .nav-cta:hover { background: #2d73bf !important; transform: translateY(-1px); }
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-burger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--ink); border-radius: 2px;
+    transition: all .3s;
+  }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    padding: 1rem 0;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    padding: .75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--mid);
+    transition: color .2s;
+  }
+  .mobile-menu a:hover { color: var(--sky); }
+  .mobile-menu .nav-cta {
+    margin: .5rem 1.5rem;
+    text-align: center;
+    border-radius: 100px;
+    color: var(--white) !important;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding-top: 64px;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #F0F7FF 0%, var(--warm) 60%, #E8FBF5 100%);
+  }
+  .hero-bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .35;
+    pointer-events: none;
+  }
+  .blob1 { width: 520px; height: 520px; background: var(--sky); top: -120px; right: -100px; }
+  .blob2 { width: 380px; height: 380px; background: var(--teal); bottom: -80px; left: -60px; }
+  .blob3 { width: 260px; height: 260px; background: var(--amber); top: 40%; right: 30%; }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    padding-block: 5rem;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .6; transform: scale(1.4); }
+  }
+  .hero-eyebrow-text {
+    font-family: var(--ff-display);
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--teal-dark);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .hero-title {
+    font-family: var(--ff-display);
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    margin-bottom: 1.4rem;
+  }
+  .hero-title .accent { color: var(--sky); position: relative; }
+  .hero-title .accent::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal), var(--sky));
+    border-radius: 4px;
+    opacity: .3;
+  }
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--mid);
+    margin-bottom: 2.2rem;
+    max-width: 460px;
+    line-height: 1.75;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--sky);
+    color: var(--white);
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: .85em 2em;
+    border-radius: 100px;
+    box-shadow: 0 8px 24px rgba(74,144,217,.35);
+    transition: background .2s, transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover { background: #2d73bf; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(74,144,217,.4); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--ff-display);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: .85em 2em;
+    border-radius: 100px;
+    border: 2px solid var(--border);
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .btn-secondary:hover { border-color: var(--sky); color: var(--sky); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2.8rem;
+    flex-wrap: wrap;
+  }
+  .stat-chip {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    background: rgba(255,255,255,.8);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: .6rem 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .stat-chip-icon { font-size: 1.2rem; }
+  .stat-chip-text { font-size: .82rem; font-weight: 500; color: var(--ink); }
+  .stat-chip-text strong { color: var(--sky); font-family: var(--ff-display); font-weight: 700; }
+
+  /* Hero visual */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .hero-card-main {
+    background: var(--white);
+    border-radius: var(--r-lg);
+    padding: 2.4rem 2rem;
+    box-shadow: var(--shadow);
+    max-width: 340px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(255,255,255,.8);
+  }
+  .hc-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--sky), var(--teal));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 1.2rem;
+    box-shadow: 0 4px 16px rgba(74,144,217,.3);
+  }
+  .hc-name {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+  .hc-role {
+    font-size: .85rem;
+    color: var(--mid);
+    margin-bottom: 1.2rem;
+  }
+  .hc-divider { height: 1px; background: var(--border); margin-bottom: 1.2rem; }
+  .hc-journey-label {
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: .8rem;
+  }
+  .hc-path {
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+  }
+  .hc-step {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-size: .88rem;
+  }
+  .hc-step-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-from { background: var(--mid); }
+  .dot-arrow { background: none; font-size: 1rem; width: 8px; color: var(--mid); }
+  .dot-to { background: var(--teal); }
+  .hc-step-label { color: var(--mid); }
+  .hc-step-label.to { color: var(--teal-dark); font-weight: 600; }
+
+  .hero-float-chip {
+    position: absolute;
+    background: var(--white);
+    border-radius: var(--r-sm);
+    padding: .7rem 1rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: .82rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .float-1 { top: -24px; right: -24px; color: var(--teal-dark); z-index: 3; }
+  .float-2 { bottom: 20px; left: -32px; color: var(--sky); z-index: 3; }
+  .float-icon { font-size: 1.2rem; }
+
+  /* ─── ABOUT ─── */
+  .about {
+    padding: 7rem 0;
+    background: var(--white);
+  }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-sticky { position: sticky; top: 90px; }
+  .about-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-bottom: 2rem;
+  }
+  .badge {
+    font-size: .78rem;
+    font-weight: 600;
+    padding: .35em .9em;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    color: var(--mid);
+    font-family: var(--ff-display);
+    transition: all .2s;
+  }
+  .badge:hover { border-color: var(--sky); color: var(--sky); }
+  .about-title { margin-bottom: 1rem; }
+  .about-lead {
+    font-size: 1.1rem;
+    color: var(--mid);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .about-story p {
+    font-size: 1rem;
+    color: #4A5568;
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+  .about-story p strong { color: var(--ink); }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1rem;
+    position: relative;
+  }
+  .tl-item:not(:last-child) .tl-line {
+    position: absolute;
+    left: 39px;
+    top: 36px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--sky-light), transparent);
+  }
+  .tl-year {
+    text-align: center;
+    padding-top: .15rem;
+  }
+  .tl-year-label {
+    font-family: var(--ff-display);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--sky);
+    display: block;
+    margin-bottom: .3rem;
+  }
+  .tl-year-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--sky);
+    border: 3px solid var(--sky-light);
+    margin-inline: auto;
+    margin-top: .4rem;
+  }
+  .tl-content {
+    padding: 0 0 2.2rem 0;
+  }
+  .tl-title {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: .25rem;
+  }
+  .tl-desc {
+    font-size: .9rem;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* ─── SERVICE ─── */
+  .service {
+    padding: 7rem 0;
+    background: linear-gradient(180deg, var(--sky-light) 0%, var(--warm) 100%);
+  }
+  .service-header { text-align: center; margin-bottom: 3.5rem; }
+  .service-header .section-sub { margin-inline: auto; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: var(--r-md);
+    padding: 2rem 1.8rem;
+    border: 1.5px solid var(--border);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    cursor: default;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--sky);
+  }
+  .service-card.featured {
+    border-color: var(--sky);
+    background: linear-gradient(135deg, #F0F7FF, #EBF4FF);
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card.featured::before {
+    content: '熱門';
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-family: var(--ff-display);
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--white);
+    background: var(--sky);
+    padding: .2em .7em;
+    border-radius: 100px;
+    letter-spacing: .05em;
+  }
+  .sc-icon { font-size: 2rem; }
+  .sc-name {
+    font-family: var(--ff-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .sc-desc {
+    font-size: .9rem;
+    color: var(--mid);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .sc-tag {
+    align-self: flex-start;
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--teal-dark);
+    background: rgba(45,197,162,.1);
+    padding: .25em .75em;
+    border-radius: 100px;
+  }
+
+  /* ─── PROCESS ─── */
+  .process {
+    padding: 7rem 0;
+    background: var(--white);
+  }
+  .process-header { text-align: center; margin-bottom: 4rem; }
+  .process-header .section-sub { margin-inline: auto; }
+  .process-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 760px;
+    margin-inline: auto;
+    position: relative;
+  }
+  .process-track::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--sky), var(--teal), transparent);
+    z-index: 0;
+  }
+  .process-step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 3rem;
+  }
+  .process-step:last-child { padding-bottom: 0; }
+  .ps-num-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: .1rem;
+  }
+  .ps-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2.5px solid var(--sky);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--sky);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 6px var(--sky-light);
+  }
+  .ps-content {
+    background: var(--sky-light);
+    border-radius: var(--r-md);
+    padding: 1.6rem 1.8rem;
+    border: 1.5px solid var(--border);
+  }
+  .ps-phase {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: .35rem;
+    font-family: var(--ff-display);
+  }
+  .ps-title {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: .5rem;
+  }
+  .ps-desc {
+    font-size: .92rem;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  /* ─── TRUST ─── */
+  .trust {
+    padding: 7rem 0;
+    background: var(--ink);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .trust::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(255,255,255,0.04)'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
+  }
+  .trust-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    opacity: .12;
+  }
+  .tb1 { width: 500px; height: 500px; background: var(--sky); top: -100px; right: -100px; }
+  .tb2 { width: 400px; height: 400px; background: var(--teal); bottom: -80px; left: -80px; }
+
+  .trust-inner { position: relative; z-index: 1; }
+  .trust-header { text-align: center; margin-bottom: 4rem; }
+  .trust-header .section-title { color: var(--white); }
+  .trust-header .section-sub { color: rgba(255,255,255,.6); margin-inline: auto; }
+  .trust-header .tag { background: rgba(74,144,217,.2); color: #90C8FF; }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .stat-box {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--r-md);
+    padding: 2.2rem 1.5rem;
+    text-align: center;
+    transition: background .2s;
+  }
+  .stat-box:hover { background: rgba(255,255,255,.1); }
+  .stat-num {
+    font-family: var(--ff-display);
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: .3rem;
+  }
+  .stat-num span { color: var(--teal); }
+  .stat-label { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.4; }
+
+  .trust-badges {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .trust-badge-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--r-md);
+    padding: 1.6rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    transition: background .2s;
+  }
+  .trust-badge-card:hover { background: rgba(255,255,255,.1); }
+  .tbc-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--r-sm);
+    background: rgba(74,144,217,.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .tbc-title {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--white);
+    margin-bottom: .3rem;
+  }
+  .tbc-desc { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.55; }
+
+  /* ─── CONTACT ─── */
+  .contact {
+    padding: 7rem 0;
+    background: linear-gradient(135deg, var(--warm) 0%, var(--sky-light) 100%);
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .contact-lead { margin-bottom: 2.5rem; }
+  .contact-lead .section-sub { max-width: 100%; }
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 1.2rem 1.4rem;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .contact-method:hover {
+    border-color: var(--sky);
+    box-shadow: var(--shadow);
+    transform: translateX(4px);
+  }
+  .cm-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--sky-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .cm-label { font-size: .8rem; color: var(--mid); font-weight: 500; }
+  .cm-value { font-family: var(--ff-display); font-weight: 700; color: var(--ink); font-size: .95rem; }
+  .cm-arrow { margin-left: auto; color: var(--mid); font-size: 1.1rem; }
+
+  .contact-form-wrap {
+    background: var(--white);
+    border-radius: var(--r-lg);
+    padding: 2.8rem;
+    box-shadow: var(--shadow);
+    border: 1.5px solid var(--border);
+  }
+  .form-title {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
+  }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: .45rem;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: .8rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-sm);
+    font-family: var(--ff-body);
+    font-size: .95rem;
+    color: var(--ink);
+    background: var(--white);
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px rgba(74,144,217,.15);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7A99' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    font-size: .88rem;
+    color: var(--mid);
+    cursor: pointer;
+  }
+  .form-check input { width: auto; }
+  .btn-submit {
+    width: 100%;
+    padding: 1em;
+    background: linear-gradient(135deg, var(--sky), #2d73bf);
+    color: var(--white);
+    border: none;
+    border-radius: 100px;
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: .5rem;
+    box-shadow: 0 8px 24px rgba(74,144,217,.35);
+    transition: transform .2s, box-shadow .2s;
+    letter-spacing: .02em;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(74,144,217,.45); }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--ink);
+    color: rgba(255,255,255,.5);
+    text-align: center;
+    padding: 2.2rem 1rem;
+    font-size: .85rem;
+  }
+  .footer a { color: var(--sky); transition: color .2s; }
+  .footer a:hover { color: var(--white); }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .65s ease, transform .65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 3rem; padding-block: 4rem; }
+    .hero-visual { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-sticky { position: static; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
+    .stats-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: .75rem; }
+    .hero-btns { flex-direction: column; align-items: flex-start; }
+    .contact-form-wrap { padding: 1.8rem 1.4rem; }
+    .process-track::before { left: 24px; }
+    .process-step { grid-template-columns: 48px 1fr; }
+    .ps-num { width: 40px; height: 40px; font-size: .9rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<header class="nav" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Jason <span>Lin</span></a>
+      <nav aria-label="主選單">
+        <ul class="nav-links">
+          <li><a href="#about">關於我</a></li>
+          <li><a href="#service">服務項目</a></li>
+          <li><a href="#process">合作流程</a></li>
+          <li><a href="#trust">為何選我</a></li>
+          <li><a href="#contact" class="nav-cta">立即預約</a></li>
+        </ul>
+      </nav>
+      <button class="nav-burger" id="burger" aria-label="開啟選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" role="navigation">
+      <a href="#about">關於我</a>
+      <a href="#service">服務項目</a>
+      <a href="#process">合作流程</a>
+      <a href="#trust">為何選我</a>
+      <a href="#contact" class="nav-cta">立即預約諮詢</a>
+    </div>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="home">
+  <div class="hero-bg-blob blob1"></div>
+  <div class="hero-bg-blob blob2"></div>
+  <div class="hero-bg-blob blob3"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Left copy -->
+      <div>
+        <div class="hero-eyebrow">
+          <div class="hero-dot"></div>
+          <span class="hero-eyebrow-text">Career Consultant｜教師轉職專家</span>
+        </div>
+        <h1 class="hero-title">
+          教學現場之外<br>還有更多<span class="accent">可能性</span>
+        </h1>
+        <p class="hero-desc">
+          你不是不夠好，只是還不知道你的教育背景有多值錢。<br>
+          讓我陪你把教室裡的能力，轉化為業界最搶手的條件。
+        </p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">預約免費初談 →</a>
+          <a href="#service" class="btn-secondary">查看服務項目</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-chip">
+            <span class="stat-chip-icon">🎓</span>
+            <span class="stat-chip-text"><strong>100+</strong> 位學員輔導</span>
+          </div>
+          <div class="stat-chip">
+            <span class="stat-chip-icon">🏆</span>
+            <span class="stat-chip-text"><strong>20+</strong> 位斜槓講師培訓</span>
+          </div>
+          <div class="stat-chip">
+            <span class="stat-chip-icon">🌏</span>
+            <span class="stat-chip-text">跨領域實戰經驗</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right visual card -->
+      <div class="hero-visual">
+        <div class="hero-card-main reveal">
+          <div class="hc-avatar">👨‍💼</div>
+          <div class="hc-name">Jason Lin</div>
+          <div class="hc-role">職涯諮詢師｜臺師大教育碩士</div>
+          <div class="hc-divider"></div>
+          <div class="hc-journey-label">學員轉職路徑</div>
+          <div class="hc-path">
+            <div class="hc-step">
+              <div class="hc-step-dot dot-from"></div>
+              <span class="hc-step-label">教師 / 補教人員</span>
+            </div>
+            <div class="hc-step">
+              <div class="hc-step-dot dot-arrow">↓</div>
+              <span class="hc-step-label" style="color:#cbd5e0; font-size:.75rem;">Jason 陪你走這段路</span>
+            </div>
+            <div class="hc-step">
+              <div class="hc-step-dot dot-to"></div>
+              <span class="hc-step-label to">企業培訓師、講師、顧問、海外</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-float-chip float-1">
+          <span class="float-icon">✅</span> 方向明確，馬上行動
+        </div>
+        <div class="hero-float-chip float-2">
+          <span class="float-icon">🌊</span> 加拿大打工度假親歷
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+
+      <!-- Left sticky -->
+      <div class="about-sticky reveal">
+        <div class="about-badge-row">
+          <span class="badge">教育碩士</span>
+          <span class="badge">🇨🇦 打工度假</span>
+          <span class="badge">多元產業歷練</span>
+          <span class="badge">淡水人</span>
+        </div>
+        <h2 class="section-title about-title">我也曾站在<br>你現在的位置</h2>
+        <p class="about-lead">
+          從教育出發，走過旅遊業、NPO、新創、學術界——我知道離開熟悉的地方需要多大的勇氣。
+        </p>
+        <div class="about-story">
+          <p>我是 Jason，土生土長淡水人，臺師大教育碩士。<strong>我在教育領域深耕，卻始終對外面的世界感到好奇。</strong></p>
+          <p>2024 年，我隻身前往加拿大多倫多展開打工度假，那一年讓我深刻明白：教育工作者擁有的溝通力、耐心與系統思維，在任何行業都是稀缺的競爭力。</p>
+          <p>回台後，我把這些跨界經歷化為陪伴教師轉職的能量。<strong>親切、有耐心、永遠站在你這一側</strong>，是學員對我最常說的評語。</p>
+        </div>
+      </div>
+
+      <!-- Right timeline -->
+      <div class="reveal">
+        <span class="tag">經歷脈絡</span>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-line"></div>
+            <div class="tl-year"><span class="tl-year-label">臺師大</span><div class="tl-year-dot"></div></div>
+            <div class="tl-content">
+              <div class="tl-title">🎓 臺師大教育碩士 ＆ 英語輔系學士</div>
+              <div class="tl-desc">奠定教育理論根基，深入研究學習策略與課程設計，並輔修英語強化語言教學能力。</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-line"></div>
+            <div class="tl-year"><span class="tl-year-label">教育業</span><div class="tl-year-dot"></div></div>
+            <div class="tl-content">
+              <div class="tl-title">👨‍🏫 教學實踐與跨域歷練</div>
+              <div class="tl-desc">輔導 100+ 位青少年、大學生、成人的英語學習策略；主講 20+ 場國高中職及大專院校導覽講座，並累積教師研習經驗。</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-line"></div>
+            <div class="tl-year"><span class="tl-year-label">多元</span><div class="tl-year-dot"></div></div>
+            <div class="tl-content">
+              <div class="tl-title">🌐 旅遊業、NPO、新創、學術界</div>
+              <div class="tl-desc">跨足五大產業，親身體驗各領域文化、技能需求與求職生態，累積豐富的業界視野。</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-line"></div>
+            <div class="tl-year"><span class="tl-year-label">培訓</span><div class="tl-year-dot"></div></div>
+            <div class="tl-content">
+              <div class="tl-title">🏆 培訓 20+ 位斜槓講師</div>
+              <div class="tl-desc">系統化協助教育工作者發展講師副業與多元收入，成功轉型為斜槓型職涯。</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year"><span class="tl-year-label">2024</span><div class="tl-year-dot" style="background:var(--teal);border-color:rgba(45,197,162,.25)"></div></div>
+            <div class="tl-content">
+              <div class="tl-title">🇨🇦 加拿大多倫多打工度假一年</div>
+              <div class="tl-desc">離開舒適圈、重新認識自己，並親身摸索移動式職涯的可能性。這段經驗成為陪伴學員探索海外機會的最佳養分。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICE ─── -->
+<section class="service" id="service">
+  <div class="container">
+    <div class="service-header reveal">
+      <span class="tag">Services</span>
+      <h2 class="section-title">你需要什麼，<br>我們就從哪裡開始</h2>
+      <p class="section-sub">從方向探索到拿到 Offer，每個階段都有對應的支持。</p>
+    </div>
+    <div class="services-grid reveal">
+
+      <div class="service-card featured">
+        <div class="sc-icon">🧭</div>
+        <div class="sc-name">職涯諮詢</div>
+        <div class="sc-desc">梳理你的技能、價值觀與市場需求，找到最適合你的轉職方向，並制定清晰可執行的行動計畫。</div>
+        <div class="sc-tag">核心服務</div>
+      </div>
+
+      <div class="service-card featured">
+        <div class="sc-icon">🚪</div>
+        <div class="sc-name">教師轉職</div>
+        <div class="sc-desc">專為教育工作者打造的轉職路徑分析，幫你看見教學資歷在業界的真正價值，不再迷茫、不再低估自己。</div>
+        <div class="sc-tag">核心服務</div>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon">📄</div>
+        <div class="sc-name">履歷健檢</div>
+        <div class="sc-desc">把教育背景重新包裝成業界語言，讓 HR 在 10 秒內看見你的核心競爭力。</div>
+        <div class="sc-tag">求職準備</div>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon">🎤</div>
+        <div class="sc-name">模擬面試</div>
+        <div class="sc-desc">模擬真實面試情境，強化自我介紹與回答策略，建立面試信心、不再臨場失措。</div>
+        <div class="sc-tag">求職準備</div>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon">🌏</div>
+        <div class="sc-name">打工度假諮詢</div>
+        <div class="sc-desc">從申辦流程、城市選擇到落地生存策略，親身走過加拿大一年，提供最真實的第一手建議。</div>
+        <div class="sc-tag">海外機會</div>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon">📐</div>
+        <div class="sc-name">課程設計</div>
+        <div class="sc-desc">協助有教學熱情的你，將知識與經驗系統化為可販售的課程，踏出斜槓第一步。</div>
+        <div class="sc-tag">斜槓發展</div>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon">🎙️</div>
+        <div class="sc-name">講師培訓</div>
+        <div class="sc-desc">從簡報設計、台風建立到業配接洽，系統化培訓你成為一位有市場、有收入的專業講師。</div>
+        <div class="sc-tag">斜槓發展</div>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon">🗣️</div>
+        <div class="sc-name">成人英語家教</div>
+        <div class="sc-desc">針對職場英語、求職面試英語、出國生活英語，設計最符合成人學習節奏的客製化課程。</div>
+        <div class="sc-tag">語言能力</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─── -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="process-header reveal">
+      <span class="tag">How It Works</span>
+      <h2 class="section-title">四步驟，陪你走到<br>拿到 Offer 的那一天</h2>
+      <p class="section-sub">不是給你一張清單，而是陪你走完整條路。</p>
+    </div>
+    <div class="process-track reveal">
+
+      <div class="process-step">
+        <div class="ps-num-wrap"><div class="ps-num">1</div></div>
+        <div class="ps-content">
+          <div class="ps-phase">Phase 01 — 探索</div>
+          <div class="ps-title">免費初談，讓我先認識你</div>
+          <div class="ps-desc">30 分鐘線上對談，了解你現在的狀況、困境與期待。沒有壓力，沒有推銷，只是一個坦誠的對話開始。</div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num-wrap"><div class="ps-num">2</div></div>
+        <div class="ps-content">
+          <div class="ps-phase">Phase 02 — 盤點</div>
+          <div class="ps-title">挖掘你的隱性競爭力</div>
+          <div class="ps-desc">深度梳理你的教育背景、跨域經歷與個人優勢，找出你可能從未想過的轉職可能性，以及業界最需要你的地方。</div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num-wrap"><div class="ps-num">3</div></div>
+        <div class="ps-content">
+          <div class="ps-phase">Phase 03 — 準備</div>
+          <div class="ps-title">打磨履歷，練出面試的底氣</div>
+          <div class="ps-desc">重寫履歷、優化 LinkedIn 或 104 個人檔案，並透過模擬面試讓你從容應對任何刁鑽問題，帶著自信投遞。</div>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="ps-num-wrap"><div class="ps-num">4</div></div>
+        <div class="ps-content">
+          <div class="ps-phase">Phase 04 — 行動</div>
+          <div class="ps-title">出發，踏上新的職涯舞台</div>
+          <div class="ps-desc">你開始投遞、面試，我持續在旁提供即時反饋與調整建議。直到你拿到那封 Offer，我們才算完成這段旅程。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUST ─── -->
+<section class="trust" id="trust">
+  <div class="trust-blob tb1"></div>
+  <div class="trust-blob tb2"></div>
+  <div class="container trust-inner">
+    <div class="trust-header reveal">
+      <span class="tag">Why Jason</span>
+      <h2 class="section-title">為什麼找我，而不是<br>自己 Google？</h2>
+      <p class="section-sub">你能查到很多資訊，但你需要的是有人幫你整合、轉化、陪你走完。</p>
+    </div>
+
+    <div class="stats-row reveal">
+      <div class="stat-box">
+        <div class="stat-num">100<span>+</span></div>
+        <div class="stat-label">學員英語策略<br>輔導人次</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">20<span>+</span></div>
+        <div class="stat-label">成功培訓<br>斜槓講師人數</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">橫跨產業<br>親身實戰經驗</div>
+      </div>
+    </div>
+
+    <div class="trust-badges reveal">
+      <div class="trust-badge-card">
+        <div class="tbc-icon">🎓</div>
+        <div>
+          <div class="tbc-title">教育背景，說你聽得懂的話</div>
+          <div class="tbc-desc">臺師大教育碩士，深知教師的思維模式，用同樣的語言和你對話，不給你看不懂的模板。</div>
+        </div>
+      </div>
+      <div class="trust-badge-card">
+        <div class="tbc-icon">🌐</div>
+        <div>
+          <div class="tbc-title">跨界實戰，不只是理論</div>
+          <div class="tbc-desc">走過教育、旅遊、學術、NPO、新創五大領域，給你的建議來自真實的業界第一線，不是書本上的職涯地圖。</div>
+        </div>
+      </div>
+      <div class="trust-badge-card">
+        <div class="tbc-icon">🇨🇦</div>
+        <div>
+          <div class="tbc-title">親歷打工度假，陪你出發</div>
+          <div class="tbc-desc">2024 年在多倫多生活一年，從找工作、語言適應到存錢回台——你想問的問題，我都真正走過。</div>
+        </div>
+      </div>
+      <div class="trust-badge-card">
+        <div class="tbc-icon">💬</div>
+        <div>
+          <div class="tbc-title">親切有耐心，沒有評判</div>
+          <div class="tbc-desc">不管你現在多迷茫，我都不會讓你感到不好意思。這裡是一個安全的對話空間，你可以說最真實的困境。</div>
+        </div>
+      </div>
+      <div class="trust-badge-card">
+        <div class="tbc-icon">🗺️</div>
+        <div>
+          <div class="tbc-title">給你方向，不是答案清單</div>
+          <div class="tbc-desc">不只告訴你「可以做什麼」，而是幫你找到「最適合你的路」，並制定能真正執行的行動計畫。</div>
+        </div>
+      </div>
+      <div class="trust-badge-card">
+        <div class="tbc-icon">🤝</div>
+        <div>
+          <div class="tbc-title">陪跑式支持，走到最後</div>
+          <div class="tbc-desc">不是給你資料包就結束，而是在你整個求職過程中持續給予回饋，直到你站穩新職涯。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+
+      <!-- Left -->
+      <div class="reveal">
+        <span class="tag">Contact</span>
+        <div class="contact-lead">
+          <h2 class="section-title">邁出第一步<br>比你想的容易</h2>
+          <p class="section-sub">
+            預約一次免費初談，30 分鐘後你會清楚地知道：下一步該怎麼做。
+          </p>
+        </div>
+        <div class="contact-methods">
+          <a href="mailto:jas840214@gmail.com" class="contact-method">
+            <div class="cm-icon">📧</div>
+            <div>
+              <div class="cm-label">Email</div>
+              <div class="cm-value">jas840214@gmail.com</div>
+            </div>
+            <span class="cm-arrow">→</span>
+          </a>
+          <a href="https://instagram.com/careerwithjason" target="_blank" rel="noopener" class="contact-method">
+            <div class="cm-icon">📱</div>
+            <div>
+              <div class="cm-label">Instagram / 社群</div>
+              <div class="cm-value">@careerwithjason</div>
+            </div>
+            <span class="cm-arrow">→</span>
+          </a>
+          <div class="contact-method" style="cursor:default;">
+            <div class="cm-icon">⏱️</div>
+            <div>
+              <div class="cm-label">回覆時間</div>
+              <div class="cm-value">通常在 24 小時內回覆</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right form -->
+      <div class="contact-form-wrap reveal">
+        <div class="form-title">🗓️ 預約免費初談</div>
+        <div class="form-group">
+          <label for="name">你的名字</label>
+          <input type="text" id="name" placeholder="請輸入姓名">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="service">感興趣的服務</label>
+          <select id="service">
+            <option value="">— 請選擇 —</option>
+            <option>職涯諮詢</option>
+            <option>教師轉職</option>
+            <option>履歷健檢</option>
+            <option>模擬面試</option>
+            <option>打工度假諮詢</option>
+            <option>課程設計</option>
+            <option>講師培訓</option>
+            <option>成人英語家教</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">目前的狀況或困擾（選填）</label>
+          <textarea id="message" placeholder="例如：我教書 5 年了，想轉企業培訓但不知道從哪開始…"></textarea>
+        </div>
+        <button class="btn-submit" type="button" onclick="handleSubmit()">送出預約申請 🚀</button>
+        <p style="text-align:center; color:var(--mid); font-size:.8rem; margin-top:1rem;">
+          完全免費，沒有任何推銷壓力 ✨
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="container">
+    <p style="margin-bottom:.3rem; color:rgba(255,255,255,.7)">
+      © 2025 <strong style="color:white">Jason Lin</strong>｜職涯諮詢師
+    </p>
+    <p>
+      <a href="mailto:jas840214@gmail.com">jas840214@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://instagram.com/careerwithjason" target="_blank" rel="noopener">@careerwithjason</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  /* ─── NAV scroll ─── */
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  /* ─── Mobile burger ─── */
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen);
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', false);
+    });
+  });
+
+  /* ─── Scroll reveal ─── */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  /* ─── Form submit ─── */
+  function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const service = document.getElementById('service').value;
+    if (!name || !email) {
+      alert('請填寫姓名與 Email，讓 Jason 聯繫你！');
+      return;
+    }
+    const subject = encodeURIComponent(`[職涯諮詢預約] ${name} — ${service || '一般諮詢'}`);
+    const message = document.getElementById('message').value.trim();
+    const body = encodeURIComponent(
+      `Hi Jason，\n\n我是 ${name}，想預約${service ? '「' + service + '」' : ''}的免費初談。\n\n${message ? '我目前的狀況：\n' + message + '\n\n' : ''}期待你的回覆！\n\n${name}\n${email}`
+    );
+    window.location.href = `mailto:jas840214@gmail.com?subject=${subject}&body=${body}`;
+  }
+
+  /* ─── Smooth active nav highlight ─── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--sky)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
