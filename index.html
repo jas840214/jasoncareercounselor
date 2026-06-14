@@ -307,12 +307,21 @@
     border: 1px solid rgba(255,255,255,.8);
   }
   .hc-avatar {
-    width: 72px; height: 72px;
+    width: 216px; height: 216px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--sky), var(--teal));
     display: flex; align-items: center; justify-content: center;
-    font-size: 2rem; margin-bottom: 1.2rem;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
     box-shadow: 0 4px 16px rgba(74,144,217,.3);
+  }
+  .hc-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center top;
+    display: block;
+    background: var(--white);
   }
   .hc-name {
     font-family: var(--ff-display);
@@ -386,6 +395,15 @@
     align-items: start;
   }
   .about-sticky { position: sticky; top: 90px; }
+  .about-photo { margin-bottom: 1rem; }
+  .about-photo img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: block;
+  }
   .about-badge-row {
     display: flex;
     flex-wrap: wrap;
@@ -926,7 +944,7 @@
           讓我陪你把教室裡的能力，轉化為業界最搶手的條件。
         </p>
         <div class="hero-btns">
-          <a href="#contact" class="btn-primary">預約免費初談 →</a>
+          <a href="https://forms.gle/Yi9ybXCxsDwt1s687" target="_blank" rel="noopener" class="btn-primary">預約初談 →</a>
           <a href="#service" class="btn-secondary">查看服務項目</a>
         </div>
         <div class="hero-stats">
@@ -948,7 +966,7 @@
       <!-- Right visual card -->
       <div class="hero-visual">
         <div class="hero-card-main reveal">
-          <div class="hc-avatar">👨‍💼</div>
+          <div class="hc-avatar"><img src="形象照 (1).JPG" alt="Jason Lin" /></div>
           <div class="hc-name">Jason Lin</div>
           <div class="hc-role">職涯諮詢師｜臺師大教育碩士</div>
           <div class="hc-divider"></div>
@@ -1122,35 +1140,35 @@
   <div class="container">
     <div class="process-header reveal">
       <span class="tag">How It Works</span>
-      <h2 class="section-title">四步驟，陪你走到<br>拿到 Offer 的那一天</h2>
-      <p class="section-sub">不是給你一張清單，而是陪你走完整條路。</p>
+      <h2 class="section-title">四個步驟，我將陪伴同行，達成目標...</h2>
+      <p class="section-sub"></p>
     </div>
     <div class="process-track reveal">
 
       <div class="process-step">
         <div class="ps-num-wrap"><div class="ps-num">1</div></div>
         <div class="ps-content">
-          <div class="ps-phase">Phase 01 — 探索</div>
-          <div class="ps-title">免費初談，讓我先認識你</div>
-          <div class="ps-desc">30 分鐘線上對談，了解你現在的狀況、困境與期待。沒有壓力，沒有推銷，只是一個坦誠的對話開始。</div>
+          <div class="ps-phase">Phase 01 — 初談</div>
+          <div class="ps-title">讓我們先認識彼此</div>
+          <div class="ps-desc">除了梳理你的學經歷，也了解你現在的狀況、困境與期待。</div>
         </div>
       </div>
 
       <div class="process-step">
         <div class="ps-num-wrap"><div class="ps-num">2</div></div>
         <div class="ps-content">
-          <div class="ps-phase">Phase 02 — 盤點</div>
-          <div class="ps-title">挖掘你的隱性競爭力</div>
-          <div class="ps-desc">深度梳理你的教育背景、跨域經歷與個人優勢，找出你可能從未想過的轉職可能性，以及業界最需要你的地方。</div>
+          <div class="ps-phase">Phase 02 — 盤點內在資源</div>
+          <div class="ps-title">深入討論你的興趣、能力、價值觀</div>
+          <div class="ps-desc">挖掘熱情、優勢跟信念。</div>
         </div>
       </div>
 
       <div class="process-step">
         <div class="ps-num-wrap"><div class="ps-num">3</div></div>
         <div class="ps-content">
-          <div class="ps-phase">Phase 03 — 準備</div>
-          <div class="ps-title">打磨履歷，練出面試的底氣</div>
-          <div class="ps-desc">重寫履歷、優化 LinkedIn 或 104 個人檔案，並透過模擬面試讓你從容應對任何刁鑽問題，帶著自信投遞。</div>
+          <div class="ps-phase">Phase 03 — 探索外在可能性</div>
+          <div class="ps-title">協助探索各種職涯資訊</div>
+          <div class="ps-desc">進一步優化履歷、模擬面試。</div>
         </div>
       </div>
 
@@ -1158,8 +1176,8 @@
         <div class="ps-num-wrap"><div class="ps-num">4</div></div>
         <div class="ps-content">
           <div class="ps-phase">Phase 04 — 行動</div>
-          <div class="ps-title">出發，踏上新的職涯舞台</div>
-          <div class="ps-desc">你開始投遞、面試，我持續在旁提供即時反饋與調整建議。直到你拿到那封 Offer，我們才算完成這段旅程。</div>
+          <div class="ps-title">訂定明確可執行的目標</div>
+          <div class="ps-desc">一步一步往前走！</div>
         </div>
       </div>
 
@@ -1251,7 +1269,7 @@
         <div class="contact-lead">
           <h2 class="section-title">邁出第一步<br>比你想的容易</h2>
           <p class="section-sub">
-            預約一次免費初談，30 分鐘後你會清楚地知道：下一步該怎麼做。
+            預約一次諮詢，30 分鐘後你會清楚地知道：下一步該怎麼做。
           </p>
         </div>
         <div class="contact-methods">
@@ -1283,7 +1301,7 @@
 
       <!-- Right form -->
       <div class="contact-form-wrap reveal">
-        <div class="form-title">🗓️ 預約免費初談</div>
+        <div class="form-title">🗓️ 預約初談</div>
         <div class="form-group">
           <label for="name">你的名字</label>
           <input type="text" id="name" placeholder="請輸入姓名">
@@ -1311,9 +1329,6 @@
           <textarea id="message" placeholder="例如：我教書 5 年了，想轉企業培訓但不知道從哪開始…"></textarea>
         </div>
         <button class="btn-submit" type="button" onclick="handleSubmit()">送出預約申請 🚀</button>
-        <p style="text-align:center; color:var(--mid); font-size:.8rem; margin-top:1rem;">
-          完全免費，沒有任何推銷壓力 ✨
-        </p>
       </div>
 
     </div>
@@ -1379,7 +1394,7 @@
     const subject = encodeURIComponent(`[職涯諮詢預約] ${name} — ${service || '一般諮詢'}`);
     const message = document.getElementById('message').value.trim();
     const body = encodeURIComponent(
-      `Hi Jason，\n\n我是 ${name}，想預約${service ? '「' + service + '」' : ''}的免費初談。\n\n${message ? '我目前的狀況：\n' + message + '\n\n' : ''}期待你的回覆！\n\n${name}\n${email}`
+      `Hi Jason，\n\n我是 ${name}，想預約${service ? '「' + service + '」' : '一般諮詢'}的諮詢。\n\n${message ? '我目前的狀況：\n' + message + '\n\n' : ''}期待你的回覆！\n\n${name}\n${email}`
     );
     window.location.href = `mailto:jas840214@gmail.com?subject=${subject}&body=${body}`;
   }
